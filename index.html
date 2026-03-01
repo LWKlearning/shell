@@ -1,70 +1,89 @@
-<script>
-function showLWKPopup() {
-    const popup = document.createElement("div");
-    popup.style = `
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.7);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-    `;
-
-    popup.innerHTML = `
-        <div style="
-            background:black;
-            color:#00aaff;
-            border:3px solid #00aaff;
-            padding:30px 40px;
-            max-width:600px;
-            text-align:center;
-            font-family:Courier New, monospace;
-            box-shadow:0 0 20px #00aaff;
-        ">
-            <div style="font-size:26px;margin-bottom:20px;">
-                Heads up 👀
-            </div>
-            <div style="font-size:20px;line-height:1.5;">
-                Keep in mind you can use <b>lwklearning chat</b> to join a server with a friend
-                in another period!<br><br>
-                Just make sure you are both online on the chat.
-            </div>
-            <button id="lwkPopupBtn" style="
-                margin-top:25px;
-                padding:12px 30px;
-                font-size:20px;
-                background:transparent;
-                border:2px solid #00aaff;
-                color:#00aaff;
-                cursor:pointer;
-            ">Got it</button>
-        </div>
-    `;
-
-    document.body.appendChild(popup);
-    document.getElementById("lwkPopupBtn").onclick = () => popup.remove();
-}
-</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shell Shockers - LWK Learning</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             width: 100%;
-            overflow: hidden; /* Prevents double scrollbars */
+            overflow: hidden;
         }
+        /* The Game Container */
         iframe {
             border: none;
             width: 100%;
             height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Game stays in background */
         }
     </style>
 </head>
 <body>
+
+    <!-- The Game -->
     <iframe src="https://humanorganising.org/" allowfullscreen></iframe>
+
+    <!-- The Popup Script -->
+    <script>
+    function showLWKPopup() {
+        const popup = document.createElement("div");
+        popup.id = "lwk-overlay";
+        popup.style = `
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999; /* Higher than iframe */
+        `;
+
+        popup.innerHTML = `
+            <div style="
+                background:black;
+                color:#00aaff;
+                border:3px solid #00aaff;
+                padding:30px 40px;
+                max-width:600px;
+                text-align:center;
+                font-family: 'Courier New', monospace;
+                box-shadow:0 0 20px #00aaff;
+            ">
+                <div style="font-size:26px;margin-bottom:20px; font-weight: bold;">
+                    Heads up 👀
+                </div>
+                <div style="font-size:20px;line-height:1.5;">
+                    Keep in mind you can use <b>lwklearning chat</b> to join a server with a friend
+                    in another period!<br><br>
+                    Just make sure you are both online on the chat.
+                </div>
+                <button id="lwkPopupBtn" style="
+                    margin-top:25px;
+                    padding:12px 30px;
+                    font-size:20px;
+                    background:transparent;
+                    border:2px solid #00aaff;
+                    color:#00aaff;
+                    cursor:pointer;
+                    transition: 0.3s;
+                ">Got it</button>
+            </div>
+        `;
+
+        document.body.appendChild(popup);
+
+        // Remove popup on click
+        document.getElementById("lwkPopupBtn").onclick = () => popup.remove();
+    }
+
+    // Trigger the popup once the window loads
+    window.onload = showLWKPopup;
+    </script>
 </body>
 </html>
